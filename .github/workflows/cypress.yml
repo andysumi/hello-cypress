@@ -1,0 +1,35 @@
+name: End-to-end tests
+on: [push]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    name: E2E on Chrome
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run cypress on chrome
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          headed: true
+          spec: cypress/e2e/1-getting-started/*.cy.js
+          record: true
+          env:
+            # pass the Dashboard record key as an environment variable
+            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+            # pass the project ID from the secrets through environment variable
+            CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+            # pass GitHub token to allow accurately detecting a build vs a re-run build
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload screenshots on failure
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - name: Upload videos
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
