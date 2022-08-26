@@ -11,7 +11,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
-          spec: cypress/e2e/1-getting-started/*.cy.js
+          spec: cypress/e2e/60分で学ぶE2Eテスト/*.cy.js
           record: true
         env:
           # pass the Dashboard record key as an environment variable
