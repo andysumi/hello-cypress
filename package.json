@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/andysumi/hello-cypress#readme",
   "dependencies": {
-    "cypress": "^10.6.0"
+    "cypress": "^10.6.0",
+    "cypress-get-by-label": "^2.4.0",
+    "dayjs": "^1.11.5"
   }
 }
